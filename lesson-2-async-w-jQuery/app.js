@@ -15,17 +15,22 @@
 
    
     
-	function addImage(images){
+	function addImage(data){
 		// debugger; //Pause let's se what's inside you
 		let htmlContent = '';
 		// const data = JSON.parse(this.responseText);
 
-		if (images && images.results && images.results[0]) {
-			console.log(images.results);
-			for (var i = images.results.length - 1; i >= 0; i--) {
-				let img = images.results[i];
-				responseContainer.insertAdjacentHTML('afterbegin', '<figure><img src = "' + img.urls.regular + '" alt="' + searchedForText + '"><figcaption>' + searchedForText + ' by ' + img.user.name + '</figcaption></figure>');
-			}
+		if (data && data.results && data.results[0]) {
+			console.log(data.results);
+			let images = data.results;
+			// for (var i = data.results.length - 1; i >= 0; i--) {
+			// 	let images = data.results[i];
+			// 	responseContainer.insertAdjacentHTML('afterbegin', '<figure><images src = "' + images.urls.regular + '" alt="' + searchedForText + '"><figcaption>' + searchedForText + ' by ' + images.user.name + '</figcaption></figure>');
+			// }
+			htmlContent = images.map(image=> `<figure><img src ="${image.urls.regular}" alt=" ${searchedForText}"><figcaption>${searchedForText} by ${image.user.name}</figcaption></figure>`
+				).join('');
+			// console.log(htmlContent);
+			responseContainer.insertAdjacentHTML('afterbegin', htmlContent);
 		}
 		else{
 			htmlContent = '<div class="error-no-image">No Images Available</div>';

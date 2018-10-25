@@ -9,4 +9,16 @@
         responseContainer.innerHTML = '';
         searchedForText = searchField.value;
     });
+
+    fetch(`https://api.unsplash.com/search/photos?page=1&query=${searchedForText}`, {
+	    headers: {
+	        Authorization: 'Client-ID abc123'
+	    }
+	}).then(function(response) {
+	    return response.json();
+	}).then(addImage);
+
+	function addImage(data) {
+	    debugger;
+	}
 })();
